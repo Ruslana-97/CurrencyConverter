@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="box">
+        <h2>Сurrency converter</h2>
+        <p class="source">Source: <span>Currency NBU</span></p>
+        <div class="blocks">
+          <div class="block exch-box">
+            <img src="exchange.png" class="exchange" />
+            <p class="title">You give</p>
+            <div class="box-input" data-first>
+              <input
+                type="number"
+                value="100"
+                placeholder="0"
+                id="input"
+                min="0"
+              />
+              <div class="selector-wraper spect">
+                <select name="" id="selectInput">
+                  <option value="UAH">UAH</option>
+                  <option value="IDR">IDR</option>
+                  <option value="USD">USD</option>
+                  <option value="EUR">EUR</option>
+                </select>
+              </div>
+            </div>
+            <div class="text">
+              <p class="cerruentCourse">
+                Current exchange rate on <span class="currentData">Data</span>
+              </p>
+              <!-- Info Currency Course -->
+              <p class="course">
+                <span class="typeOfCurrency_1"></span>
+                <span class="typeOfCurrency_2"></span>
+              </p>
+            </div>
+          </div>
+
+          <div class="block get">
+            <p class="title2">You get</p>
+            <div class="box-input trans">
+              <input
+                type="number"
+                placeholder="0"
+                value="0"
+                readonly
+                class="input"
+              />
+              <div class="selector-wraper colot-text-option">
+                <select name="" id="selectOutput">
+                  <option value="USD">USD</option>
+                  <option value="IDR">IDR</option>
+                  <option value="EUR">EUR</option>
+                  <option value="UAH">UAH</option>
+                </select>
+              </div>
+            </div>
+            <p class="course_2">
+              <span class="typeOfCurrency_11"></span>
+              <span class="typeOfCurrency_22"></span>
+            </p>
+          </div>
+          <button class="btnConvert">Buy</button>
+        </div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
