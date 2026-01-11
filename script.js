@@ -52,11 +52,13 @@ async function countCourses() {
 
   const from = selectInput.value;
   const to = selectOutput.value;
-  const amount = +inputCurrency.value || 0;
 
+  // const amount = +inputCurrency.value || 0 ;
+   const amount = parseFloat(inputCurrency.value.replace(/\s/g, '')) || 0;
   if (from === to) {
     showError(true);
     inputOutput.value = 0;
+    
     return;
   }
 
@@ -72,9 +74,11 @@ async function countCourses() {
   const rate = ratesUAH[from] / ratesUAH[to];
 
   setTexts(from, to, rate);
-
-  inputOutput.value = (amount * rate).toFixed(2);
-
+  // inputOutput.value = (amount * rate).toFixed(2);
+    inputOutput.value = (amount * rate).toLocaleString('uk-UA', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
 }
 
 //Show text 
@@ -134,20 +138,45 @@ init();
 
 exchange.addEventListener('click', changeBlocks);
 
+
 function changeBlocks() {
-  // --- SWAP input і select --- 
-  const tempInput = inputCurrency.value;
-  inputCurrency.value = inputOutput.value || '0';
-  inputOutput.value = tempInput;
+    // --- SWAP input і select ---
+    const amountInput = inputCurrency.value;
+    const amountOutput = inputOutput.value;
 
-  const tempSelect = selectInput.value;
-  selectInput.value = selectOutput.value;
-  selectOutput.value = tempSelect;
+    if (amountInput === 0 && amountOutput === 0) return;
 
-  countCourses();
+    inputCurrency.value = amountOutput ? amountOutput.toString() : '0';
+    inputOutput.value = amountInput ? amountInput.toString() : '0';
+
+    const tempSelect = selectInput.value;
+    selectInput.value = selectOutput.value;
+    selectOutput.value = tempSelect;
+
+    countCourses();
 }
 
 
+
+function digitsInt(target) {
+    let val = target.value;
+    val = val.replace(/[^0-9]/g, '');
+    val = val.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+    target.value = val;
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  digitsInt(inputCurrency);
+  digitsInt(inputOutput);
+  
+    inputOutput.addEventListener('input', () => {
+        digitsInt(inputOutput);
+    });
+    inputCurrency.addEventListener('input', () => {
+        digitsInt(inputCurrency);
+    });
+});
 
 
 
